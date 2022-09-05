@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MyStoryBook</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css">
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+
+<body>
+    {{> _header}}
+    {{> _addNewStory}}
+    <div class="container">
+        {{{body}}}
+    </div>
+
+    <style>
+    .ck-editor__editable[role="textbox"] {
+        min-height: 200px;
+    }
+
+    .ck-content .image {
+        max-width: 80%;
+        margin: 20px auto;
+    }
+    </style>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script src="https://cdn.ckeditor.com/ckeditor5/35.0.1/classic/ckeditor.js"></script>
+
+    <script>
+        M.Sidenav.init(document.querySelector('.sidenav'))
+        M.FormSelect.init(document.querySelector('#status'))
+
+        ClassicEditor
+            .create( document.querySelector('#body'), {
+                placeholder: 'Once upon a time...'
+            } )
+            .catch( error => {
+                console.error( error )
+            })
+    </script>
+</body>
+
+</html>
