@@ -188,5 +188,29 @@ router.get(
     }
 )
 
+/**
+ * @desc Search stories by title
+ * @route GET /stories/search/:query
+ */
+ router.get(
+    '/search/:query', ensureAuth,
+    async (req, res) => {
+        try {
+            const stories = await Story.find({
+                title: new RegExp(req.query.query, 'i'),
+                status: 'public'
+            }).populate('user')
+            .sort({ createdAt: 'desc' })
+            .lean()
+
+            stories ? res.render('stories/index', { stories })
+                : res.status(404).render('error/404')
+        } catch (error) {
+            console.error(error)
+            res.render('error/500')
+        }
+    }
+)
+
 
 module.exports = router
